@@ -1,0 +1,44 @@
+/*
+*  This sketch sends a message to a TCP server
+*
+#include <HTTPClient.h>
+#include <WiFi.h>
+#include <WiFiMulti.h>
+
+WiFiMulti WiFiMulti;
+
+const char *ssid = "PEINE-3";
+const char *password = "etecPeine3";
+const char *serverName = "http://10.56.13.3:6000/api/sensor";
+
+void setup() {
+ Serial.begin(115200);
+ delay(10);
+
+ WiFiMulti.addAP("SSID", "passpasspass");
+
+ Serial.println();
+ Serial.println();
+ Serial.print("Waiting for WiFi... ");
+
+ while (WiFiMulti.run() != WL_CONNECTED) {
+   Serial.print(".");
+   delay(500);
+ }
+
+ Serial.println("");
+ Serial.println("WiFi connected");
+ Serial.println("IP address: ");
+ Serial.println(WiFi.localIP());
+
+ delay(500);
+}
+
+void loop() {
+ delay(3000);
+
+ if(WiFi.status()== WL_CONNECTED) {
+   WiFiClient client;
+   HTTPClient http;
+   http.begin(client, serverName);
+   http.add
