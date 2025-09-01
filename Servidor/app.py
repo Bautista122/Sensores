@@ -30,5 +30,9 @@ def sensor():
     datos = request.json
     nombre = datos["nombre"]
     valor = datos["valor"]
+    db = abrirConexion()
+    db.execute("INSERT INTO valores (nombre, valor) VALUES (?, ?)", (nombre, valor))
+    db.commit()
+    cerrarConexion()
     print(f"nombre del sensor {nombre}, valor: {valor}")
     return "OK"
